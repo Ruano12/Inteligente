@@ -1,4 +1,4 @@
-package com.br.inteligente.lancamento
+package br.com.inteligente.lancamento
 
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

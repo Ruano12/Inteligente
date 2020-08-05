@@ -1,6 +1,6 @@
-package com.br.inteligente.funcionario
+package br.com.inteligente.funcionario
 
-import com.br.inteligente.enums.PerfilEnum
+import br.com.inteligente.enums.PerfilEnum
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 

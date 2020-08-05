@@ -1,4 +1,4 @@
-package com.br.inteligente.funcionario
+package br.com.inteligente.funcionario
 
 import org.springframework.data.mongodb.repository.MongoRepository
 

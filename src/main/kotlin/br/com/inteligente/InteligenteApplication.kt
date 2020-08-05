@@ -1,4 +1,4 @@
-package com.br.inteligente
+package br.com.inteligente
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

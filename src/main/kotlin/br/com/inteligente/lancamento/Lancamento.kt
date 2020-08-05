@@ -1,6 +1,6 @@
-package com.br.inteligente.lancamento
+package br.com.inteligente.lancamento
 
-import com.br.inteligente.enums.TipoEnum
+import br.com.inteligente.enums.TipoEnum
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.util.Date

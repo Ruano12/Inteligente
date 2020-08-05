@@ -1,4 +1,4 @@
-package com.br.inteligente.enums
+package br.com.inteligente.enums
 
 enum class PerfilEnum {
     ROLE_ADMIN,
