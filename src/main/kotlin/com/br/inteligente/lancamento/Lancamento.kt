@@ -1,4 +1,4 @@
-package com.br.inteligente.documents
+package com.br.inteligente.lancamento
 
 import com.br.inteligente.enums.TipoEnum
 import org.springframework.data.annotation.Id

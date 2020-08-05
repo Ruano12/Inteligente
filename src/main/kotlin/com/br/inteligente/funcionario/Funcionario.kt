@@ -1,4 +1,4 @@
-package com.br.inteligente.documents
+package com.br.inteligente.funcionario
 
 import com.br.inteligente.enums.PerfilEnum
 import org.springframework.data.annotation.Id

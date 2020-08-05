@@ -1,4 +1,4 @@
-package com.br.inteligente.documents
+package com.br.inteligente.empresa
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
