@@ -6,7 +6,7 @@ import br.com.inteligente.funcionario.FuncionarioService
 import org.springframework.stereotype.Service
 
 @Service
-class FuncionarioServiceImpl(val funcionarioRepository: FuncionarioRepository): FuncionarioService {
+class FuncionarioServiceImpl(val funcionarioRepository: FuncionarioRepository) : FuncionarioService {
 
     override fun persistir(funcionario: Funcionario): Funcionario = funcionarioRepository.save(funcionario)
 
