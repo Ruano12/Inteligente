@@ -1,5 +1,6 @@
 package br.com.inteligente.lancamento.api.dtos
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import javax.validation.constraints.NotEmpty
 
 data class LancamentoDto (
@@ -12,6 +13,10 @@ data class LancamentoDto (
 
         val descricao: String? = null,
         val localizacao: String? = null,
+
+        @JsonProperty("funcionario-id")
         val funcionarioId: String? = null,
         var id: String? = null
+
+
 )
