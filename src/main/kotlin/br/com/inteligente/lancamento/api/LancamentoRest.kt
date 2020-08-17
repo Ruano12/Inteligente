@@ -8,15 +8,16 @@ import br.com.inteligente.lancamento.LancamentoService
 import br.com.inteligente.lancamento.api.dtos.LancamentoDto
 import br.com.inteligente.response.Response
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.BindingResult
 import org.springframework.validation.ObjectError
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.util.*
 import javax.validation.Valid
 
 @RestController
@@ -40,9 +41,44 @@ class LancamentoRest(val lancamentoService: LancamentoService,
             return ResponseEntity.badRequest().body(response)
         }
 
-        val lancamento:Lancamento = converterDtoParaLancamento(lancamentoDto, result)
-        lancamentoService.persistir(lancamento)
+        var lancamento:Lancamento = converterDtoParaLancamento(lancamentoDto, result)
+        lancamento = lancamentoService.persistir(lancamento)
         response.data = converterLancamentoDto(lancamento)
+        return ResponseEntity.ok(response)
+    }
+
+    @GetMapping(value = ["/{id}"])
+    fun listarPorId(@PathVariable("id") id: String): ResponseEntity<Response<LancamentoDto>> {
+        val response: Response<LancamentoDto> = Response<LancamentoDto>()
+        val lancamento: Lancamento? = lancamentoService.buscarPorId(id)
+
+        if(Objects.isNull(lancamento)){
+            response.erros.add("Lançamento não encontrado para o id $id")
+            return ResponseEntity.badRequest().body(response)
+        }
+
+        response.data = converterLancamentoDto(lancamento!!)
+        return ResponseEntity.ok(response)
+    }
+
+    @GetMapping(value = ["/funcionario/{funcionarioId}"])
+    fun listarPorFuncionarioId(@PathVariable("funcionarioId") funcionarioId: String,
+                                @RequestParam(value = "pag", defaultValue = "0") pag:Int,
+                                @RequestParam(value = "ord", defaultValue = "id") ord: String,
+                                @RequestParam(value = "dir", defaultValue = "DESC") dir: String):
+            ResponseEntity<Response<List<LancamentoDto>>>{
+
+        val response: Response<List<LancamentoDto>> = Response<List<LancamentoDto>>()
+
+        val pageRequest: PageRequest = PageRequest.of(pag, qtdPorPagina, Sort.Direction.valueOf(dir), ord)
+        val lancamentos: Page<Lancamento> =
+                lancamentoService.buscarPorFuncionarioId(funcionarioId, pageRequest)
+
+        val lancamentosDto: List<LancamentoDto> =
+                lancamentos.toList().map { lancamento -> converterLancamentoDto(lancamento) }
+
+        response.data = lancamentosDto
+        response.totalItems = lancamentos.totalElements.toInt()
         return ResponseEntity.ok(response)
     }
 

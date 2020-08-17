@@ -5,6 +5,7 @@ import br.com.inteligente.empresa.EmpresaRepository
 import br.com.inteligente.enums.PerfilEnum
 import br.com.inteligente.funcionario.Funcionario
 import br.com.inteligente.funcionario.FuncionarioRepository
+import br.com.inteligente.lancamento.LancamentoRepository
 import br.com.inteligente.util.SenhaUtils
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -13,11 +14,13 @@ import javax.validation.constraints.Email
 
 @SpringBootApplication
 class InteligenteApplication(val empresaRepository: EmpresaRepository,
-							 val funcionarioRepository: FuncionarioRepository): CommandLineRunner{
+							 val funcionarioRepository: FuncionarioRepository,
+							 val lancamentoRepository: LancamentoRepository): CommandLineRunner{
 
 	override fun run(vararg args: String?){
 		empresaRepository.deleteAll()
 		funcionarioRepository.deleteAll()
+		lancamentoRepository.deleteAll()
 
 		var empresa: Empresa = Empresa("Empresa", "35360040000129")
 		empresa = empresaRepository.save(empresa)
