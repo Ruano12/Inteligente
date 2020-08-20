@@ -34,7 +34,7 @@ class LancamentoRest(val lancamentoService: LancamentoService,
     fun adicionar(@Valid @RequestBody lancamentoDto: LancamentoDto,
                     result: BindingResult): ResponseEntity<Response<LancamentoDto>> {
         val response: Response<LancamentoDto> = Response<LancamentoDto>()
-        validaFuncionario(lancamentoDto, result)
+        validarFuncionario(lancamentoDto, result)
 
         if(result.hasErrors()) {
             for (erro in result.allErrors) response.erros.add(erro.defaultMessage!!)
@@ -82,7 +82,41 @@ class LancamentoRest(val lancamentoService: LancamentoService,
         return ResponseEntity.ok(response)
     }
 
-    private fun validaFuncionario(lancamentoDto: LancamentoDto, result: BindingResult) {
+    @PutMapping(value = ["/{id}"])
+    fun atualizar(@PathVariable("id") id:String, @Valid @RequestBody lancamentoDto: LancamentoDto,
+                  result: BindingResult): ResponseEntity<Response<LancamentoDto>> {
+
+        val response: Response<LancamentoDto> = Response<LancamentoDto>()
+        println(lancamentoDto)
+        validarFuncionario(lancamentoDto, result)
+        lancamentoDto.id = id
+        var lancamento: Lancamento = converterDtoParaLancamento(lancamentoDto, result)
+
+        if(result.hasErrors()) {
+            for(erro in result.allErrors) response.erros.add(erro.defaultMessage!!)
+            return ResponseEntity.badRequest().body(response)
+        }
+
+        lancamento = lancamentoService.persistir(lancamento)
+        response.data = converterLancamentoDto(lancamento)
+        return ResponseEntity.ok(response)
+    }
+
+    @DeleteMapping(value = ["/{id}"])
+    fun remover(@PathVariable("id") id:String): ResponseEntity<Response<String>> {
+        val response: Response<String> = Response<String>()
+        val lancamento: Lancamento? = lancamentoService.buscarPorId(id)
+
+        if(lancamento == null) {
+            response.erros.add("Erro ao remover lançamento. Registro não encontrado para o id $id")
+            return ResponseEntity.badRequest().body(response)
+        }
+
+        lancamentoService.remover(id)
+        return ResponseEntity.ok(response)
+    }
+
+    private fun validarFuncionario(lancamentoDto: LancamentoDto, result: BindingResult) {
         if(lancamentoDto.funcionarioId == null){
             result.addError(ObjectError("funcionario", "Funcionário não informado."))
 
