@@ -27,8 +27,9 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
-	testImplementation("org.springframework.security:spring-security-test")
+	implementation("com.fasterxml.jackson.core:jackson-databind:2.11.2")
 }
 tasks.withType<Test> {
 	useJUnitPlatform()

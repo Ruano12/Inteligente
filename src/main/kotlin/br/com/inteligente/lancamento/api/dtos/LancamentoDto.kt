@@ -16,6 +16,7 @@ data class LancamentoDto (
 
         @JsonProperty("funcionario-id")
         val funcionarioId: String? = null,
+
         var id: String? = null
 
 
