@@ -1,5 +1,6 @@
 package br.com.inteligente.cadastro.api.dtos
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import org.hibernate.validator.constraints.br.CNPJ
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotEmpty
@@ -30,6 +31,7 @@ data class CadastroPjDto (
 
         @get:NotEmpty(message = "Razão social não pode ser vazio.")
         @get:Size(min = 5, max = 200, message = "Razão social deve conter entre 5 e 200 caracteres.")
+        @JsonProperty("razao-social")
         val razaoSocial: String = "",
 
         val id:String? = null
