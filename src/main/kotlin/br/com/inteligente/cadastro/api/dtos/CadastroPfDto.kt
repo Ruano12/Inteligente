@@ -1,5 +1,6 @@
 package br.com.inteligente.cadastro.api.dtos
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import org.hibernate.validator.constraints.br.CNPJ
 import org.hibernate.validator.constraints.br.CPF
 import javax.validation.constraints.Email
@@ -27,10 +28,16 @@ data class CadastroPfDto(
         @get:CNPJ(message = "CNPJ inválido.")
         val cnpj: String = "",
 
+        @JsonProperty("empresa-id")
         val empresaId: String = "",
 
+        @JsonProperty("valor-hora")
         val valorHora: String? = null,
+
+        @JsonProperty("qtd-horas-trabalho-dia")
         val qtdHorasTrabalhoDia: String? = null,
+
+        @JsonProperty("qtd-horas-almoco")
         val qtdHorasAlmoco: String? = null,
         val id: String? = null
 )
