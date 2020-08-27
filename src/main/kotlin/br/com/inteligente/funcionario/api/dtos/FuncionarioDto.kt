@@ -1,5 +1,6 @@
 package br.com.inteligente.funcionario.api.dtos
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.Size
@@ -16,8 +17,14 @@ data class FuncionarioDto (
         val email:String = "",
 
         val senha:String? = null,
+
+        @JsonProperty("valor-hora")
         val valorHora: String? = null,
+
+        @JsonProperty("qtd-horas-trabalho-dia")
         val qtdHorasTrabalhoDia: String? = null,
+
+        @JsonProperty("qtd-horas-almoco")
         val qtdHorasAlmoco: String? = null,
         val id:String? = null
 
