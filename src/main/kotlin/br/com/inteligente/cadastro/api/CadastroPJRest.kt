@@ -19,8 +19,8 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/cadastrar-pj")
-class CadastroPJController(val empresaService: EmpresaService,
-                           val funcionarioService:FuncionarioService) {
+class CadastroPJRest(val empresaService: EmpresaService,
+                     val funcionarioService:FuncionarioService) {
 
     @PostMapping
     fun cadastrar(@Valid @RequestBody cadastroPjDto: CadastroPjDto,
