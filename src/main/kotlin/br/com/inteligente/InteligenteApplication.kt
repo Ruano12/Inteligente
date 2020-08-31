@@ -13,34 +13,7 @@ import org.springframework.boot.runApplication
 import javax.validation.constraints.Email
 
 @SpringBootApplication
-class InteligenteApplication(val empresaRepository: EmpresaRepository,
-							 val funcionarioRepository: FuncionarioRepository,
-							 val lancamentoRepository: LancamentoRepository): CommandLineRunner{
-
-	override fun run(vararg args: String?){
-		empresaRepository.deleteAll()
-		funcionarioRepository.deleteAll()
-		lancamentoRepository.deleteAll()
-
-		var empresa: Empresa = Empresa("Empresa", "35360040000129")
-		empresa = empresaRepository.save(empresa)
-
-		var admin: Funcionario = Funcionario("Admin", "admin@empresa.com",
-					SenhaUtils().gerarBcrypt("123456"), "52272453040",
-					PerfilEnum.ROLE_ADMIN, empresa.id!!)
-		admin = funcionarioRepository.save(admin)
-
-		var funcionario: Funcionario = Funcionario("Funcionario",
-						"funcionario@empresa.com", SenhaUtils().gerarBcrypt("123456"),
-						"46497736018", PerfilEnum.ROLE_USUARIO, empresa.id!!)
-		funcionario = funcionarioRepository.save(funcionario)
-
-		println("Empresa ID: "+empresa.id)
-		println("Admin ID: "+ admin.id)
-		println("Funcionario ID "+funcionario.id)
-
-	}
-}
+class InteligenteApplication
 
 fun main(args: Array<String>) {
 	runApplication<InteligenteApplication>(*args)

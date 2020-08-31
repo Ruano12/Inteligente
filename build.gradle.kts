@@ -28,6 +28,7 @@ dependencies {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
 	implementation("com.fasterxml.jackson.core:jackson-databind:2.11.2")
 }

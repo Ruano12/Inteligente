@@ -8,6 +8,7 @@ import br.com.inteligente.lancamento.api.dtos.LancamentoDto
 import br.com.inteligente.util.SenhaUtils
 import br.com.inteligente.util.JsonUtils
 import com.fasterxml.jackson.core.JsonProcessingException
+import org.springframework.security.test.context.support.WithMockUser;
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.BDDMockito
@@ -97,6 +98,7 @@ class LancamentoControllerTest {
 
     @Test
     @Throws(Exception::class)
+    @WithMockUser(username = "admin@admin.com", roles = arrayOf("ADMIN"))
     fun testRemoverLancamento() {
         BDDMockito.given<Lancamento>(lancamentoService?.buscarPorId(ID_LANCAMENTO))
                 .willReturn(obterDadosLancamento())
